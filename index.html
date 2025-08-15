@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Report: The Vibe Coding Revolution</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals (Stone background, Teal/Indigo accents) -->
+    <!-- Application Structure Plan: A thematic, non-linear dashboard SPA. Key sections: 'The Big Picture' (dynamic stats), 'The Two Paths' (interactive comparison), 'The New Creators' (tabbed persona explorer with Gemini-powered idea generation), 'The Coder's Toolkit' (interactive grid), and 'Risks & Rewards' (interactive diagram with Gemini-powered explanations). This structure prioritizes user-driven exploration over the report's linear format, using interactive elements to make complex concepts like the personas and risks more digestible and engaging. -->
+    <!-- Visualization & Content Choices: 1. Search Trend -> Goal: Change -> Viz: Line Chart -> Interaction: Animate on load -> Justification: Visually represents the explosive growth metric effectively -> Library: Chart.js. 2. Personas -> Goal: Organize/Engage -> Viz: Tabbed Interface + Gemini API -> Interaction: Click to reveal content and generate ideas -> Justification: Classic UI enhanced with dynamic, AI-generated content for deeper engagement. -> Method: JS/CSS/API. 3. Toolkit -> Goal: Organize -> Viz: Interactive Grid -> Interaction: Hover to show details -> Justification: More dynamic and space-efficient than a static table. -> Method: JS/CSS. 4. Risks/Mitigation -> Goal: Compare/Explain -> Viz: Interactive Diagram + Gemini API -> Interaction: Click to connect problem with solution and get simple explanations -> Justification: Visually reinforces relationships and uses AI to improve comprehension of technical topics. -> Method: JS/CSS/API. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f5f4; /* stone-100 */
+            color: #292524; /* stone-800 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 40vh;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .nav-link {
+            transition: color 0.3s, border-color 0.3s;
+        }
+        .nav-link.active {
+            color: #0d9488; /* teal-600 */
+            border-bottom-color: #0d9488;
+        }
+        .persona-tab.active {
+            background-color: #0d9488; /* teal-600 */
+            color: white;
+        }
+        .risk-item.active {
+            background-color: #4338ca; /* indigo-700 */
+            color: white;
+            transform: scale(1.05);
+        }
+        .mitigation-item {
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        .gemini-btn {
+            background: linear-gradient(to right, #4338ca, #6d28d9);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .gemini-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4338ca;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold text-teal-700">The Vibe Coding Revolution</h1>
+            <div class="hidden md:flex space-x-8">
+                <a href="#overview" class="nav-link text-stone-600 hover:text-teal-600 border-b-2 border-transparent pb-1">Overview</a>
+                <a href="#personas" class="nav-link text-stone-600 hover:text-teal-600 border-b-2 border-transparent pb-1">Creators</a>
+                <a href="#toolkit" class="nav-link text-stone-600 hover:text-teal-600 border-b-2 border-transparent pb-1">Toolkit</a>
+                <a href="#risks" class="nav-link text-stone-600 hover:text-teal-600 border-b-2 border-transparent pb-1">Risks</a>
+                <a href="#future" class="nav-link text-stone-600 hover:text-teal-600 border-b-2 border-transparent pb-1">Future</a>
+            </div>
+            <div class="md:hidden">
+                <select id="mobile-nav" class="bg-stone-200 border border-stone-300 text-stone-700 text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2.5">
+                    <option value="#overview">Overview</option>
+                    <option value="#personas">Creators</option>
+                    <option value="#toolkit">Toolkit</option>
+                    <option value="#risks">Risks</option>
+                    <option value="#future">Future</option>
+                </select>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-8 md:py-12">
+
+        <section id="overview" class="text-center mb-16 md:mb-24">
+            <h2 class="text-3xl md:text-5xl font-bold mb-4 text-stone-900">The Vibe Shift in Software</h2>
+            <p class="max-w-3xl mx-auto text-lg text-stone-600 mb-12">
+                Explore the rise of "Vibe Coding," a new paradigm where software is created through a conversational partnership between human intent and artificial intelligence. This interactive report breaks down the trend, the players, the tools, and the critical risks involved.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-16">
+                <div class="bg-white p-8 rounded-xl shadow-lg border border-stone-200">
+                    <div id="search-trend-stat" class="text-5xl md:text-6xl font-bold text-teal-600 mb-2">0%</div>
+                    <h3 class="text-lg font-semibold text-stone-800">Increase in Search Queries</h3>
+                    <p class="text-stone-500">In just three months of 2025, demonstrating explosive market interest.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg border border-stone-200">
+                    <div id="startup-stat" class="text-5xl md:text-6xl font-bold text-teal-600 mb-2">0%</div>
+                    <h3 class="text-lg font-semibold text-stone-800">of YC W25 Startups</h3>
+                    <p class="text-stone-500">Launched with codebases that are 95% AI-generated, signaling a major competitive shift.</p>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="growthChart"></canvas>
+            </div>
+        </section>
+
+        <section id="paths" class="mb-16 md:mb-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-stone-900">The Two Tracks of Vibe Coding</h2>
+                <p class="max-w-2xl mx-auto mt-4 text-lg text-stone-600">It's crucial to distinguish between the exploratory hobbyist approach and the disciplined professional application. Click to learn more.</p>
+            </div>
+            <div id="paths-container" class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            </div>
+        </section>
+
+        <section id="personas" class="mb-16 md:mb-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-stone-900">The New Cast of Creators</h2>
+                <p class="max-w-2xl mx-auto mt-4 text-lg text-stone-600">Vibe coding is not just changing how software is written; it's redefining who can write it. Select a persona to see how their roles are evolving.</p>
+            </div>
+            <div class="max-w-6xl mx-auto">
+                <div id="persona-tabs" class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8">
+                </div>
+                <div id="persona-content" class="bg-white p-8 rounded-xl shadow-lg border border-stone-200">
+                </div>
+            </div>
+        </section>
+
+        <section id="toolkit" class="mb-16 md:mb-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-stone-900">The Vibe Coder's Toolkit</h2>
+                <p class="max-w-2xl mx-auto mt-4 text-lg text-stone-600">A diverse ecosystem of tools has emerged to power this new paradigm. Hover over each category to explore the key players and their purpose.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+            </div>
+        </section>
+
+        <section id="risks" class="mb-16 md:mb-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-stone-900">Risks & Mitigation</h2>
+                <p class="max-w-2xl mx-auto mt-4 text-lg text-stone-600">Unchecked, vibe coding introduces critical liabilities. A disciplined, risk-aware approach is essential. Click on a risk to see how to address it.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto">
+                <div id="risk-list" class="space-y-4">
+                </div>
+                <div id="mitigation-list" class="bg-white p-8 rounded-xl shadow-lg border border-stone-200">
+                    <h3 class="text-xl font-bold mb-4 text-indigo-800">Mitigation Strategies</h3>
+                    <div id="mitigation-content" class="space-y-4">
+                        <p class="text-stone-500">Select a risk on the left to view its corresponding mitigation strategies.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="future" class="bg-teal-700 text-white rounded-2xl p-8 md:p-16">
+            <div class="text-center">
+                <h2 class="text-3xl md:text-4xl font-bold">The Future of Software Creation</h2>
+                <p class="max-w-3xl mx-auto mt-4 text-lg text-teal-100 mb-12">The developer's role is evolving from a writer of code to an orchestrator of AI. The bottleneck is shifting from *'Can we build this?'* to *'Should we build this?'*</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+                    <div class="bg-teal-800/50 p-6 rounded-xl">
+                        <h3 class="font-bold text-xl mb-2">For Technology Leaders</h3>
+                        <p class="text-teal-200">Adopt a dual-track strategy: encourage sandboxed innovation while enforcing rigorous discipline and security reviews for production code.</p>
+                    </div>
+                    <div class="bg-teal-800/50 p-6 rounded-xl">
+                        <h3 class="font-bold text-xl mb-2">For Individuals</h3>
+                        <p class="text-teal-200">Cultivate T-shaped expertise. Build deep foundational knowledge in your core domain while developing broad proficiency in directing AI systems.</p>
+                    </div>
+                    <div class="bg-teal-800/50 p-6 rounded-xl">
+                        <h3 class="font-bold text-xl mb-2">For the Industry</h3>
+                        <p class="text-teal-200">Develop a new canon of best practices that responsibly integrates human-AI collaboration, focusing on quality, security, and maintainability.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-8 text-stone-500">
+        <p>An Interactive Synthesis of the Report: "The Vibe Shift"</p>
+    </footer>
+
+    <div id="gemini-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden">
+        <div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full p-8 relative transform transition-all scale-95 opacity-0">
+            <button id="close-modal-btn" class="absolute top-4 right-4 text-stone-500 hover:text-stone-800 text-2xl">&times;</button>
+            <h3 id="modal-title" class="text-2xl font-bold text-indigo-800 mb-4"></h3>
+            <div id="modal-content" class="text-stone-700"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const data = {
+                stats: {
+                    searchTrend: 6700,
+                    startupAdoption: 25,
+                },
+                paths: [
+                    {
+                        title: 'Track 1: "Pure" Vibe Coding',
+                        icon: '🚀',
+                        description: 'An exploratory practice with high trust in AI output, often without reading the code. The user acts as a director, providing prompts and observing results.',
+                        who: 'Hobbyists, Ideation, Rapid Prototyping',
+                        goal: 'Maximum speed for throwaway projects and personal tools.'
+                    },
+                    {
+                        title: 'Track 2: Responsible AI-Assisted Development',
+                        icon: '🛠️',
+                        description: 'A disciplined, professional application where the AI acts as a "pair programmer." The human developer takes full ownership of the final product.',
+                        who: 'Professionals, Engineers, PMs, Designers',
+                        goal: 'Augmenting skills, increasing productivity and quality while ensuring security and maintainability.'
+                    }
+                ],
+                personas: [
+                    {
+                        name: 'Augmented Engineer',
+                        title: 'From Coder to Architect',
+                        motivation: 'Automate tedious work (boilerplate, tests) to focus on high-value tasks like architecture, performance, and security.',
+                        workflow: 'Uses in-editor assistants (e.g., GitHub Copilot) in a tight loop: prompt, generate, meticulously review, test, and refine.',
+                        challenge: 'Avoiding skill atrophy and over-dependence on AI for fundamental problem-solving.'
+                    },
+                    {
+                        name: 'Prototyping Product Manager',
+                        title: 'Bridging the Idea-Execution Gap',
+                        motivation: 'Independently create functional, high-fidelity prototypes to test hypotheses and get stakeholder buy-in without waiting for engineering resources.',
+                        workflow: 'Uses full-stack generators (e.g., Replit) to turn user stories directly into interactive web apps from natural language prompts.',
+                        challenge: 'Managing the "messy handoff" to engineering, ensuring prototypes are seen as proofs-of-concept, not production code.'
+                    },
+                    {
+                        name: 'Interactive Designer',
+                        title: 'From Static Mockups to Live Prototypes',
+                        motivation: 'Move beyond static design tools to build genuinely interactive prototypes that accurately simulate complex user experiences and animations.',
+                        workflow: 'Uses UI-specialist tools (e.g., Lovable) to generate components from text or convert Figma designs into functional code, then refines with prompts.',
+                        challenge: 'Ensuring AI-generated designs align with established design systems and are technically feasible for production.'
+                    },
+                    {
+                        name: 'Citizen Developer & Solo Founder',
+                        title: 'The Democratization of Building',
+                        motivation: 'Build functional software to solve a specific problem without the time or capital required to learn traditional coding or hire a team.',
+                        workflow: 'Relies on "pure" vibe coding, using platforms that abstract away the code entirely, focusing only on high-level goals and functional output.',
+                        challenge: 'Creations are often plagued by bugs, major security vulnerabilities, and an inability to scale, posing significant risks.'
+                    }
+                ],
+                toolkit: [
+                    {
+                        category: 'Full-Stack Generators',
+                        description: 'Generate complete, deployable applications from prompts, handling frontend, backend, and database.',
+                        players: 'Replit, Lovable, Bolt',
+                        icon: '🌐'
+                    },
+                    {
+                        category: 'AI-Native IDEs',
+                        description: 'Code editors built for AI, offering deep codebase context and multi-file editing capabilities.',
+                        players: 'Cursor, Kiro by Amazon, Claude Code',
+                        icon: '💻'
+                    },
+                    {
+                        category: 'UI & Frontend Specialists',
+                        description: 'Focus on generating UI components and frontend code from text prompts or design files.',
+                        players: 'Lovable, Figma Make, v0 by Vercel',
+                        icon: '🎨'
+                    },
+                    {
+                        category: 'In-Editor Code Assistants',
+                        description: 'Plugins for existing IDEs that provide code completion and agentic task automation.',
+                        players: 'GitHub Copilot, VSCode Extensions',
+                        icon: '🔌'
+                    }
+                ],
+                risks: [
+                    {
+                        name: 'Security Deficit',
+                        description: 'AI is optimized for functional, not secure, code, leading to "silent killer" vulnerabilities like SQL injection, XSS, and hardcoded secrets.',
+                        mitigation: [
+                            '<strong>Secure Prompting:</strong> Explicitly ask for security controls in prompts (e.g., "sanitize filenames to prevent path traversal").',
+                            '<strong>Automated Scanning:</strong> Integrate SAST, DAST, and secret scanning tools into the CI/CD pipeline.',
+                            '<strong>Mandatory Human Review:</strong> All AI-generated code, especially for critical functions, must be reviewed by an experienced engineer.'
+                        ]
+                    },
+                    {
+                        name: 'Technical Debt',
+                        description: 'Focus on speed leads to inconsistent patterns, poor architecture, and lack of documentation, creating a "black box" that is hard to maintain.',
+                        mitigation: [
+                            '<strong>Rigorous Architectural Reviews:</strong> Enforce consistency and adherence to established design patterns during code review.',
+                            '<strong>Dedicated Refactoring Sprints:</strong> Formally allocate time to improve, document, and pay down debt in AI-generated code.',
+                            '<strong>Leverage AI for Documentation:</strong> Use AI tools to help document and explain the code it has generated.'
+                        ]
+                    },
+                    {
+                        name: '"Shadow IT" & Compliance',
+                        description: 'Non-technical employees build unsanctioned apps that lack enterprise-grade security, data privacy, and regulatory compliance (GDPR, HIPAA).',
+                        mitigation: [
+                            '<strong>Establish Governance:</strong> Create clear corporate policies on approved AI tools and provide sanctioned, secure "sandbox" environments.',
+                            '<strong>Implement Tiered Access:</strong> Provide guided development for domain experts while reserving full access for trained engineers.',
+                            '<strong>Partner, Don\'t Prohibit:</strong> IT should educate business units on risks and provide them with safe platforms and training.'
+                        ]
+                    }
+                ]
+            };
+
+            const geminiModal = document.getElementById('gemini-modal');
+            const modalContentContainer = geminiModal.querySelector('div');
+            const modalTitle = document.getElementById('modal-title');
+            const modalContent = document.getElementById('modal-content');
+            const closeModalBtn = document.getElementById('close-modal-btn');
+
+            const showModal = () => {
+                geminiModal.classList.remove('hidden');
+                setTimeout(() => {
+                    modalContentContainer.classList.remove('scale-95', 'opacity-0');
+                }, 10);
+            };
+
+            const hideModal = () => {
+                modalContentContainer.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => {
+                    geminiModal.classList.add('hidden');
+                }, 200);
+            };
+
+            closeModalBtn.addEventListener('click', hideModal);
+            geminiModal.addEventListener('click', (e) => {
+                if (e.target === geminiModal) {
+                    hideModal();
+                }
+            });
+
+            async function callGemini(prompt) {
+                const apiKey = ""; 
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+                const chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+                const payload = { contents: chatHistory };
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        console.error(`HTTP error! status: ${response.status}`);
+                        return "Sorry, there was an issue with the API response.";
+                    }
+
+                    const result = await response.json();
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        return result.candidates[0].content.parts[0].text;
+                    } else {
+                        console.error("Invalid response structure from Gemini API", result);
+                        return "Sorry, the API returned an unexpected response format.";
+                    }
+                } catch (error) {
+                    console.error("Error calling Gemini API:", error);
+                    return "Sorry, I couldn't connect to the AI service. Please check your connection and try again.";
+                }
+            }
+            
+            const animateStat = (element, target, duration, suffix = '') => {
+                let start = 0;
+                const stepTime = Math.abs(Math.floor(duration / target));
+                const timer = setInterval(() => {
+                    start += 1;
+                    element.textContent = start + suffix;
+                    if (start === target) {
+                        clearInterval(timer);
+                    }
+                }, stepTime);
+            };
+
+            const searchTrendEl = document.getElementById('search-trend-stat');
+            const startupStatEl = document.getElementById('startup-stat');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateStat(searchTrendEl, data.stats.searchTrend, 2000, '%');
+                        animateStat(startupStatEl, data.stats.startupAdoption, 2000, '%');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            observer.observe(searchTrendEl);
+
+            const ctx = document.getElementById('growthChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr'],
+                    datasets: [{
+                        label: 'Search Interest Trend for "Vibe Coding"',
+                        data: [50, 1500, 4000, 6700],
+                        borderColor: '#0d9488',
+                        backgroundColor: 'rgba(13, 148, 136, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => `Interest Index: ${c.parsed.y}` } } },
+                    scales: { y: { beginAtZero: true, title: { display: true, text: 'Relative Search Interest' } } }
+                }
+            });
+
+            const pathsContainer = document.getElementById('paths-container');
+            data.paths.forEach(path => {
+                const card = document.createElement('div');
+                card.className = 'path-card bg-white p-8 rounded-xl shadow-lg border border-stone-200 cursor-pointer transform hover:scale-105 transition-transform duration-300';
+                card.innerHTML = `
+                    <div class="text-4xl mb-4">${path.icon}</div>
+                    <h3 class="text-2xl font-bold text-stone-800 mb-3">${path.title}</h3>
+                    <p class="text-stone-600 mb-4">${path.description}</p>
+                    <div class="bg-stone-100 p-4 rounded-lg">
+                        <p class="font-semibold text-stone-700"><strong>Who:</strong> ${path.who}</p>
+                        <p class="font-semibold text-stone-700 mt-2"><strong>Goal:</strong> ${path.goal}</p>
+                    </div>
+                `;
+                pathsContainer.appendChild(card);
+            });
+
+            const personaTabs = document.getElementById('persona-tabs');
+            const personaContent = document.getElementById('persona-content');
+
+            data.personas.forEach((persona, index) => {
+                const tab = document.createElement('button');
+                tab.className = 'persona-tab px-4 py-2 rounded-full text-sm font-semibold transition-colors duration-300 bg-stone-200 text-stone-700 hover:bg-teal-500 hover:text-white';
+                tab.textContent = persona.name;
+                tab.dataset.index = index;
+                personaTabs.appendChild(tab);
+            });
+
+            const updatePersonaContent = (index) => {
+                const persona = data.personas[index];
+                personaContent.innerHTML = `
+                    <h3 class="text-2xl font-bold text-teal-700 mb-2">${persona.name}</h3>
+                    <p class="text-lg font-semibold text-stone-500 mb-2">${persona.title}</p>
+                    <div class="space-y-4 text-stone-700 mb-2">
+                        <p><strong>Motivation:</strong> ${persona.motivation}</p>
+                        <p><strong>Workflow:</strong> ${persona.workflow}</p>
+                        <p><strong>Challenge:</strong> ${persona.challenge}</p>
+                    </div>
+                `;
+                document.querySelectorAll('.persona-tab').forEach(t => t.classList.remove('active'));
+                document.querySelector(`.persona-tab[data-index='${index}']`).classList.add('active');
+            };
+
+            personaTabs.addEventListener('click', (e) => {
+                if (e.target.classList.contains('persona-tab')) {
+                    updatePersonaContent(e.target.dataset.index);
+                }
+            });
+            updatePersonaContent(0);
+
+            const toolkitContainer = document.querySelector('#toolkit .grid');
+            data.toolkit.forEach(tool => {
+                const card = document.createElement('div');
+                card.className = 'bg-white p-6 rounded-xl shadow-lg border border-stone-200 relative overflow-hidden group';
+                card.innerHTML = `
+                    <div class="text-4xl mb-4">${tool.icon}</div>
+                    <h3 class="text-xl font-bold text-stone-800 mb-2">${tool.category}</h3>
+                    <p class="text-stone-600">${tool.description}</p>
+                    <div class="absolute inset-0 bg-indigo-700 text-white p-6 flex flex-col justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <h4 class="font-bold mb-2">Key Players:</h4>
+                        <p>${tool.players}</p>
+                    </div>
+                `;
+                toolkitContainer.appendChild(card);
+            });
+
+            const riskList = document.getElementById('risk-list');
+            const mitigationContent = document.getElementById('mitigation-content');
+
+            data.risks.forEach((risk, index) => {
+                const item = document.createElement('div');
+                item.className = 'risk-item bg-white p-6 rounded-xl shadow-lg border border-stone-200 cursor-pointer transition-all duration-300 hover:bg-indigo-600 hover:text-white';
+                item.dataset.index = index;
+                item.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="text-xl font-bold mb-2">${risk.name}</h4>
+                            <p>${risk.description}</p>
+                        </div>
+                    </div>
+                `;
+                riskList.appendChild(item);
+            });
+            
+            riskList.addEventListener('click', (e) => {
+                
+                const riskItem = e.target.closest('.risk-item');
+                if (riskItem) {
+                    updateMitigationContent(riskItem.dataset.index);
+                }
+            });
+
+            const updateMitigationContent = (index) => {
+                const risk = data.risks[index];
+                mitigationContent.innerHTML = `
+                    <h3 class="text-xl font-bold mb-4 text-indigo-800">Mitigating: ${risk.name}</h3>
+                    <ul class="space-y-4 text-stone-700 list-disc list-inside">
+                        ${risk.mitigation.map(m => `<li class="mitigation-item opacity-0 transform translate-y-2">${m}</li>`).join('')}
+                    </ul>
+                `;
+                setTimeout(() => {
+                    document.querySelectorAll('.mitigation-item').forEach((item, i) => {
+                        setTimeout(() => {
+                            item.style.opacity = 1;
+                            item.style.transform = 'translateY(0)';
+                        }, i * 150);
+                    });
+                }, 100);
+
+                document.querySelectorAll('.risk-item').forEach(r => r.classList.remove('active'));
+                document.querySelector(`.risk-item[data-index='${index}']`).classList.add('active');
+            };
+            updateMitigationContent(0);
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('main section');
+            const mobileNav = document.getElementById('mobile-nav');
+
+            const onScroll = () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 100) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+                if (current) {
+                    mobileNav.value = `#${current}`;
+                }
+            };
+            window.addEventListener('scroll', onScroll);
+            
+            mobileNav.addEventListener('change', (e) => {
+                window.location.hash = e.target.value;
+            });
+        });
+    </script>
+</body>
+</html>
