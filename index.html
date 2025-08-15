@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,9 +17,12 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f5f5f4; /* stone-100 */
-            color: #292524; /* stone-800 */
+            background-color: #f5f5f4;
+            /* stone-100 */
+            color: #292524;
+            /* stone-800 */
         }
+
         .chart-container {
             position: relative;
             width: 100%;
@@ -28,39 +32,51 @@
             height: 300px;
             max-height: 40vh;
         }
+
         @media (min-width: 768px) {
             .chart-container {
                 height: 400px;
             }
         }
+
         .nav-link {
             transition: color 0.3s, border-color 0.3s;
         }
+
         .nav-link.active {
-            color: #0d9488; /* teal-600 */
+            color: #0d9488;
+            /* teal-600 */
             border-bottom-color: #0d9488;
         }
+
         .persona-tab.active {
-            background-color: #0d9488; /* teal-600 */
+            background-color: #0d9488;
+            /* teal-600 */
             color: white;
         }
+
         .risk-item.active {
-            background-color: #4338ca; /* indigo-700 */
+            background-color: #4338ca;
+            /* indigo-700 */
             color: white;
             transform: scale(1.05);
         }
+
         .mitigation-item {
             transition: opacity 0.5s, transform 0.5s;
         }
+
         .gemini-btn {
             background: linear-gradient(to right, #4338ca, #6d28d9);
             color: white;
             transition: all 0.3s ease;
         }
+
         .gemini-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
+
         .loader {
             border: 4px solid #f3f3f3;
             border-top: 4px solid #4338ca;
@@ -69,26 +85,42 @@
             height: 24px;
             animation: spin 1s linear infinite;
         }
+
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
     </style>
 </head>
+
 <body class="antialiased">
 
     <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <h1 class="text-xl md:text-2xl font-bold text-teal-700">The Vibe Coding Revolution</h1>
             <div class="hidden md:flex space-x-8">
-                <a href="#overview" class="nav-link text-stone-600 hover:text-teal-600 border-b-2 border-transparent pb-1">Overview</a>
-                <a href="#personas" class="nav-link text-stone-600 hover:text-teal-600 border-b-2 border-transparent pb-1">Creators</a>
-                <a href="#toolkit" class="nav-link text-stone-600 hover:text-teal-600 border-b-2 border-transparent pb-1">Toolkit</a>
-                <a href="#risks" class="nav-link text-stone-600 hover:text-teal-600 border-b-2 border-transparent pb-1">Risks</a>
-                <a href="#future" class="nav-link text-stone-600 hover:text-teal-600 border-b-2 border-transparent pb-1">Future</a>
+                <a href="#genesis"
+                    class="nav-link text-stone-600 hover:text-teal-600 border-b-2 border-transparent pb-1">Genesis</a>
+                <a href="#overview"
+                    class="nav-link text-stone-600 hover:text-teal-600 border-b-2 border-transparent pb-1">Overview</a>
+                <a href="#personas"
+                    class="nav-link text-stone-600 hover:text-teal-600 border-b-2 border-transparent pb-1">Creators</a>
+                <a href="#toolkit"
+                    class="nav-link text-stone-600 hover:text-teal-600 border-b-2 border-transparent pb-1">Toolkit</a>
+                <a href="#risks"
+                    class="nav-link text-stone-600 hover:text-teal-600 border-b-2 border-transparent pb-1">Risks</a>
+                <a href="#future"
+                    class="nav-link text-stone-600 hover:text-teal-600 border-b-2 border-transparent pb-1">Future</a>
             </div>
             <div class="md:hidden">
-                <select id="mobile-nav" class="bg-stone-200 border border-stone-300 text-stone-700 text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2.5">
+                <select id="mobile-nav"
+                    class="bg-stone-200 border border-stone-300 text-stone-700 text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2.5">
+                    <option value="#genesis">Genesis</option>
                     <option value="#overview">Overview</option>
                     <option value="#personas">Creators</option>
                     <option value="#toolkit">Toolkit</option>
@@ -101,10 +133,27 @@
 
     <main class="container mx-auto px-6 py-8 md:py-12">
 
+        <section id="genesis" class="text-center mb-16 md:mb-24">
+            <h2 class="text-3xl md:text-4xl font-bold text-stone-900 mb-4">The Genesis of a Revolution</h2>
+            <p class="max-w-3xl mx-auto text-lg text-stone-600 mb-6">
+                The term "vibe coding" was coined in <strong>early 2025</strong> by renowned AI researcher <strong>Andrej Karpathy</strong>. He envisioned
+                a future where developers could "fully give in to the vibes... and forget that the code even exists,"
+                shifting the focus from writing syntax to directing an AI partner.
+            </p>
+            <p class="max-w-3xl mx-auto text-lg text-stone-600">
+                This concept is the practical culmination of his 2023 prediction that "the hottest new programming
+                language is English." Vibe coding represents a move to a higher level of abstraction, where the human
+                provides intent through natural language, and the AI handles the complex implementation details, turning
+                a conversational loop into functional software.
+            </p>
+        </section>
+
         <section id="overview" class="text-center mb-16 md:mb-24">
             <h2 class="text-3xl md:text-5xl font-bold mb-4 text-stone-900">The Vibe Shift in Software</h2>
             <p class="max-w-3xl mx-auto text-lg text-stone-600 mb-12">
-                Explore the rise of "Vibe Coding," a new paradigm where software is created through a conversational partnership between human intent and artificial intelligence. This interactive report breaks down the trend, the players, the tools, and the critical risks involved.
+                Explore the rise of "Vibe Coding," a new paradigm where software is created through a conversational
+                partnership between human intent and artificial intelligence. This interactive report breaks down the
+                trend, the players, the tools, and the critical risks involved.
             </p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-16">
@@ -116,10 +165,11 @@
                 <div class="bg-white p-8 rounded-xl shadow-lg border border-stone-200">
                     <div id="startup-stat" class="text-5xl md:text-6xl font-bold text-teal-600 mb-2">0%</div>
                     <h3 class="text-lg font-semibold text-stone-800">of YC W25 Startups</h3>
-                    <p class="text-stone-500">Launched with codebases that are 95% AI-generated, signaling a major competitive shift.</p>
+                    <p class="text-stone-500">Launched with codebases that are 95% AI-generated, signaling a major
+                        competitive shift.</p>
                 </div>
             </div>
-            
+
             <div class="chart-container">
                 <canvas id="growthChart"></canvas>
             </div>
@@ -128,7 +178,8 @@
         <section id="paths" class="mb-16 md:mb-24">
             <div class="text-center mb-12">
                 <h2 class="text-3xl md:text-4xl font-bold text-stone-900">The Two Tracks of Vibe Coding</h2>
-                <p class="max-w-2xl mx-auto mt-4 text-lg text-stone-600">It's crucial to distinguish between the exploratory hobbyist approach and the disciplined professional application. Click to learn more.</p>
+                <p class="max-w-2xl mx-auto mt-4 text-lg text-stone-600">It's crucial to distinguish between the
+                    exploratory hobbyist approach and the disciplined professional application. Click to learn more.</p>
             </div>
             <div id="paths-container" class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             </div>
@@ -137,7 +188,9 @@
         <section id="personas" class="mb-16 md:mb-24">
             <div class="text-center mb-12">
                 <h2 class="text-3xl md:text-4xl font-bold text-stone-900">The New Cast of Creators</h2>
-                <p class="max-w-2xl mx-auto mt-4 text-lg text-stone-600">Vibe coding is not just changing how software is written; it's redefining who can write it. Select a persona to see how their roles are evolving.</p>
+                <p class="max-w-2xl mx-auto mt-4 text-lg text-stone-600">Vibe coding is not just changing how software
+                    is written; it's redefining who can write it. Select a persona to see how their roles are evolving.
+                </p>
             </div>
             <div class="max-w-6xl mx-auto">
                 <div id="persona-tabs" class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8">
@@ -150,7 +203,8 @@
         <section id="toolkit" class="mb-16 md:mb-24">
             <div class="text-center mb-12">
                 <h2 class="text-3xl md:text-4xl font-bold text-stone-900">The Vibe Coder's Toolkit</h2>
-                <p class="max-w-2xl mx-auto mt-4 text-lg text-stone-600">A diverse ecosystem of tools has emerged to power this new paradigm. Hover over each category to explore the key players and their purpose.</p>
+                <p class="max-w-2xl mx-auto mt-4 text-lg text-stone-600">A diverse ecosystem of tools has emerged to
+                    power this new paradigm. Hover over each category to explore the key players and their purpose.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
             </div>
@@ -159,7 +213,9 @@
         <section id="risks" class="mb-16 md:mb-24">
             <div class="text-center mb-12">
                 <h2 class="text-3xl md:text-4xl font-bold text-stone-900">Risks & Mitigation</h2>
-                <p class="max-w-2xl mx-auto mt-4 text-lg text-stone-600">Unchecked, vibe coding introduces critical liabilities. A disciplined, risk-aware approach is essential. Click on a risk to see how to address it.</p>
+                <p class="max-w-2xl mx-auto mt-4 text-lg text-stone-600">Unchecked, vibe coding introduces critical
+                    liabilities. A disciplined, risk-aware approach is essential. Click on a risk to see how to address
+                    it.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto">
                 <div id="risk-list" class="space-y-4">
@@ -167,7 +223,8 @@
                 <div id="mitigation-list" class="bg-white p-8 rounded-xl shadow-lg border border-stone-200">
                     <h3 class="text-xl font-bold mb-4 text-indigo-800">Mitigation Strategies</h3>
                     <div id="mitigation-content" class="space-y-4">
-                        <p class="text-stone-500">Select a risk on the left to view its corresponding mitigation strategies.</p>
+                        <p class="text-stone-500">Select a risk on the left to view its corresponding mitigation
+                            strategies.</p>
                     </div>
                 </div>
             </div>
@@ -176,19 +233,24 @@
         <section id="future" class="bg-teal-700 text-white rounded-2xl p-8 md:p-16">
             <div class="text-center">
                 <h2 class="text-3xl md:text-4xl font-bold">The Future of Software Creation</h2>
-                <p class="max-w-3xl mx-auto mt-4 text-lg text-teal-100 mb-12">The developer's role is evolving from a writer of code to an orchestrator of AI. The bottleneck is shifting from *'Can we build this?'* to *'Should we build this?'*</p>
+                <p class="max-w-3xl mx-auto mt-4 text-lg text-teal-100 mb-12">The developer's role is evolving from a
+                    writer of code to an orchestrator of AI. The bottleneck is shifting from *'Can we build this?'* to
+                    *'Should we build this?'*</p>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
                     <div class="bg-teal-800/50 p-6 rounded-xl">
                         <h3 class="font-bold text-xl mb-2">For Technology Leaders</h3>
-                        <p class="text-teal-200">Adopt a dual-track strategy: encourage sandboxed innovation while enforcing rigorous discipline and security reviews for production code.</p>
+                        <p class="text-teal-200">Adopt a dual-track strategy: encourage sandboxed innovation while
+                            enforcing rigorous discipline and security reviews for production code.</p>
                     </div>
                     <div class="bg-teal-800/50 p-6 rounded-xl">
                         <h3 class="font-bold text-xl mb-2">For Individuals</h3>
-                        <p class="text-teal-200">Cultivate T-shaped expertise. Build deep foundational knowledge in your core domain while developing broad proficiency in directing AI systems.</p>
+                        <p class="text-teal-200">Cultivate T-shaped expertise. Build deep foundational knowledge in your
+                            core domain while developing broad proficiency in directing AI systems.</p>
                     </div>
                     <div class="bg-teal-800/50 p-6 rounded-xl">
                         <h3 class="font-bold text-xl mb-2">For the Industry</h3>
-                        <p class="text-teal-200">Develop a new canon of best practices that responsibly integrates human-AI collaboration, focusing on quality, security, and maintainability.</p>
+                        <p class="text-teal-200">Develop a new canon of best practices that responsibly integrates
+                            human-AI collaboration, focusing on quality, security, and maintainability.</p>
                     </div>
                 </div>
             </div>
@@ -200,9 +262,12 @@
         <p>An Interactive Synthesis of the Report: "The Vibe Shift"</p>
     </footer>
 
-    <div id="gemini-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden">
-        <div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full p-8 relative transform transition-all scale-95 opacity-0">
-            <button id="close-modal-btn" class="absolute top-4 right-4 text-stone-500 hover:text-stone-800 text-2xl">&times;</button>
+    <div id="gemini-modal"
+        class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden">
+        <div
+            class="bg-white rounded-xl shadow-2xl max-w-2xl w-full p-8 relative transform transition-all scale-95 opacity-0">
+            <button id="close-modal-btn"
+                class="absolute top-4 right-4 text-stone-500 hover:text-stone-800 text-2xl">&times;</button>
             <h3 id="modal-title" class="text-2xl font-bold text-indigo-800 mb-4"></h3>
             <div id="modal-content" class="text-stone-700"></div>
         </div>
@@ -346,7 +411,7 @@
             });
 
             async function callGemini(prompt) {
-                const apiKey = ""; 
+                const apiKey = "";
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
                 const chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
                 const payload = { contents: chatHistory };
@@ -377,7 +442,7 @@
                     return "Sorry, I couldn't connect to the AI service. Please check your connection and try again.";
                 }
             }
-            
+
             const animateStat = (element, target, duration, suffix = '') => {
                 let start = 0;
                 const stepTime = Math.abs(Math.floor(duration / target));
@@ -392,7 +457,7 @@
 
             const searchTrendEl = document.getElementById('search-trend-stat');
             const startupStatEl = document.getElementById('startup-stat');
-            
+
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -402,7 +467,7 @@
                     }
                 });
             }, { threshold: 0.5 });
-            
+
             observer.observe(searchTrendEl);
 
             const ctx = document.getElementById('growthChart').getContext('2d');
@@ -509,9 +574,9 @@
                 `;
                 riskList.appendChild(item);
             });
-            
+
             riskList.addEventListener('click', (e) => {
-                
+
                 const riskItem = e.target.closest('.risk-item');
                 if (riskItem) {
                     updateMitigationContent(riskItem.dataset.index);
@@ -563,11 +628,12 @@
                 }
             };
             window.addEventListener('scroll', onScroll);
-            
+
             mobileNav.addEventListener('change', (e) => {
                 window.location.hash = e.target.value;
             });
         });
     </script>
 </body>
+
 </html>
