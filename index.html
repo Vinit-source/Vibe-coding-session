@@ -11,8 +11,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Chosen Palette: Warm Neutrals (Stone background, Teal/Indigo accents) -->
-    <!-- Application Structure Plan: A thematic, non-linear dashboard SPA. Key sections: 'The Big Picture' (dynamic stats), 'The Two Paths' (interactive comparison), 'The New Creators' (tabbed persona explorer with Gemini-powered idea generation), 'The Coder's Toolkit' (interactive grid), and 'Risks & Rewards' (interactive diagram with Gemini-powered explanations). This structure prioritizes user-driven exploration over the report's linear format, using interactive elements to make complex concepts like the personas and risks more digestible and engaging. -->
-    <!-- Visualization & Content Choices: 1. Search Trend -> Goal: Change -> Viz: Line Chart -> Interaction: Animate on load -> Justification: Visually represents the explosive growth metric effectively -> Library: Chart.js. 2. Personas -> Goal: Organize/Engage -> Viz: Tabbed Interface + Gemini API -> Interaction: Click to reveal content and generate ideas -> Justification: Classic UI enhanced with dynamic, AI-generated content for deeper engagement. -> Method: JS/CSS/API. 3. Toolkit -> Goal: Organize -> Viz: Interactive Grid -> Interaction: Hover to show details -> Justification: More dynamic and space-efficient than a static table. -> Method: JS/CSS. 4. Risks/Mitigation -> Goal: Compare/Explain -> Viz: Interactive Diagram + Gemini API -> Interaction: Click to connect problem with solution and get simple explanations -> Justification: Visually reinforces relationships and uses AI to improve comprehension of technical topics. -> Method: JS/CSS/API. -->
+    <!-- Application Structure Plan: A thematic, non-linear dashboard SPA. Key sections: 'The Big Picture' (dynamic stats), 'The Two Paths' (interactive comparison), 'The New Creators' (tabbed persona explorer), 'The Coder's Toolkit' (interactive grid), and 'Risks & Rewards' (interactive diagram). This structure prioritizes user-driven exploration over the report's linear format, using interactive elements to make complex concepts like the personas and risks more digestible and engaging. -->
+    <!-- Visualization & Content Choices: 1. Search Trend -> Goal: Change -> Viz: Line Chart -> Interaction: Animate on load -> Justification: Visually represents the explosive growth metric effectively -> Library: Chart.js. 2. Personas -> Goal: Organize/Engage -> Viz: Tabbed Interface -> Interaction: Click to reveal content -> Justification: Classic UI for comparing distinct categories. -> Method: JS/CSS. 3. Toolkit -> Goal: Organize -> Viz: Interactive Grid -> Interaction: Hover to show details -> Justification: More dynamic and space-efficient than a static table. -> Method: JS/CSS. 4. Risks/Mitigation -> Goal: Compare/Explain -> Viz: Interactive Diagram -> Interaction: Click to connect problem with solution -> Justification: Visually reinforces relationships. -> Method: JS/CSS. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
@@ -65,36 +65,6 @@
         .mitigation-item {
             transition: opacity 0.5s, transform 0.5s;
         }
-
-        .gemini-btn {
-            background: linear-gradient(to right, #4338ca, #6d28d9);
-            color: white;
-            transition: all 0.3s ease;
-        }
-
-        .gemini-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #4338ca;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
     </style>
 </head>
 
@@ -105,27 +75,27 @@
             <h1 class="text-xl md:text-2xl font-bold text-teal-700">The Vibe Coding Revolution</h1>
             <div class="hidden md:flex space-x-8">
                 <a href="#genesis"
-                    class="nav-link text-stone-600 hover:text-teal-600 border-b-2 border-transparent pb-1">Genesis</a>
+                    class="nav-link text-stone-600 hover:text-teal-600 border-b-2 border-transparent pb-1">The Origin Story</a>
                 <a href="#overview"
-                    class="nav-link text-stone-600 hover:text-teal-600 border-b-2 border-transparent pb-1">Overview</a>
+                    class="nav-link text-stone-600 hover:text-teal-600 border-b-2 border-transparent pb-1">The Hype</a>
                 <a href="#personas"
-                    class="nav-link text-stone-600 hover:text-teal-600 border-b-2 border-transparent pb-1">Creators</a>
+                    class="nav-link text-stone-600 hover:text-teal-600 border-b-2 border-transparent pb-1">The Players</a>
                 <a href="#toolkit"
-                    class="nav-link text-stone-600 hover:text-teal-600 border-b-2 border-transparent pb-1">Toolkit</a>
+                    class="nav-link text-stone-600 hover:text-teal-600 border-b-2 border-transparent pb-1">The Gear</a>
                 <a href="#risks"
-                    class="nav-link text-stone-600 hover:text-teal-600 border-b-2 border-transparent pb-1">Risks</a>
+                    class="nav-link text-stone-600 hover:text-teal-600 border-b-2 border-transparent pb-1">The Risks</a>
                 <a href="#future"
-                    class="nav-link text-stone-600 hover:text-teal-600 border-b-2 border-transparent pb-1">Future</a>
+                    class="nav-link text-stone-600 hover:text-teal-600 border-b-2 border-transparent pb-1">What's Next?</a>
             </div>
             <div class="md:hidden">
                 <select id="mobile-nav"
                     class="bg-stone-200 border border-stone-300 text-stone-700 text-sm rounded-lg focus:ring-teal-500 focus:border-teal-500 block w-full p-2.5">
-                    <option value="#genesis">Genesis</option>
-                    <option value="#overview">Overview</option>
-                    <option value="#personas">Creators</option>
-                    <option value="#toolkit">Toolkit</option>
-                    <option value="#risks">Risks</option>
-                    <option value="#future">Future</option>
+                    <option value="#genesis">The Origin Story</option>
+                    <option value="#overview">The Hype</option>
+                    <option value="#personas">The Players</option>
+                    <option value="#toolkit">The Gear</option>
+                    <option value="#risks">The Risks</option>
+                    <option value="#future">What's Next?</option>
                 </select>
             </div>
         </nav>
@@ -134,39 +104,31 @@
     <main class="container mx-auto px-6 py-8 md:py-12">
 
         <section id="genesis" class="text-center mb-16 md:mb-24">
-            <h2 class="text-3xl md:text-4xl font-bold text-stone-900 mb-4">The Genesis of a Revolution</h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-stone-900 mb-4">So, Where Did This "Vibe Coding" Thing Come From?</h2>
             <p class="max-w-3xl mx-auto text-lg text-stone-600 mb-6">
-                The term "vibe coding" was coined in <strong>early 2025</strong> by renowned AI researcher <strong>Andrej Karpathy</strong>. He envisioned
-                a future where developers could "fully give in to the vibes... and forget that the code even exists,"
-                shifting the focus from writing syntax to directing an AI partner.
+                The term was dreamed up in <strong>early 2025</strong> by AI wizard <strong>Andrej Karpathy</strong>. He imagined a world where you could just "fully give in to the vibes... and forget that the code even exists," basically telling an AI what you want instead of typing semicolons.
             </p>
             <p class="max-w-3xl mx-auto text-lg text-stone-600">
-                This concept is the practical culmination of his 2023 prediction that "the hottest new programming
-                language is English." Vibe coding represents a move to a higher level of abstraction, where the human
-                provides intent through natural language, and the AI handles the complex implementation details, turning
-                a conversational loop into functional software.
+                It's the real-world version of his 2023 prediction that "the hottest new programming language is English." You talk, it codes. Simple as that.
             </p>
         </section>
 
         <section id="overview" class="text-center mb-16 md:mb-24">
-            <h2 class="text-3xl md:text-5xl font-bold mb-4 text-stone-900">The Vibe Shift in Software</h2>
+            <h2 class="text-3xl md:text-5xl font-bold mb-4 text-stone-900">Software is Catching a Vibe</h2>
             <p class="max-w-3xl mx-auto text-lg text-stone-600 mb-12">
-                Explore the rise of "Vibe Coding," a new paradigm where software is created through a conversational
-                partnership between human intent and artificial intelligence. This interactive report breaks down the
-                trend, the players, the tools, and the critical risks involved.
+                "Vibe Coding" is the new kid on the block. It's all about teaming up with an AI, telling it your grand ideas, and watching the code appear. Let's look at the hype, the people doing it, the tools they use, and what could go wrong.
             </p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-16">
                 <div class="bg-white p-8 rounded-xl shadow-lg border border-stone-200">
                     <div id="search-trend-stat" class="text-5xl md:text-6xl font-bold text-teal-600 mb-2">0%</div>
-                    <h3 class="text-lg font-semibold text-stone-800">Increase in Search Queries</h3>
-                    <p class="text-stone-500">In just three months of 2025, demonstrating explosive market interest.</p>
+                    <h3 class="text-lg font-semibold text-stone-800">Spike in Search Queries</h3>
+                    <p class="text-stone-500">In just three months of 2025. Yeah, it's getting popular.</p>
                 </div>
                 <div class="bg-white p-8 rounded-xl shadow-lg border border-stone-200">
                     <div id="startup-stat" class="text-5xl md:text-6xl font-bold text-teal-600 mb-2">0%</div>
                     <h3 class="text-lg font-semibold text-stone-800">of YC W25 Startups</h3>
-                    <p class="text-stone-500">Launched with codebases that are 95% AI-generated, signaling a major
-                        competitive shift.</p>
+                    <p class="text-stone-500">Launched with codebases that are 95% AI-generated. The game is changing.</p>
                 </div>
             </div>
 
@@ -177,20 +139,18 @@
 
         <section id="paths" class="mb-16 md:mb-24">
             <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-stone-900">The Two Tracks of Vibe Coding</h2>
-                <p class="max-w-2xl mx-auto mt-4 text-lg text-stone-600">It's crucial to distinguish between the
-                    exploratory hobbyist approach and the disciplined professional application. Click to learn more.</p>
+                <h2 class="text-3xl md:text-4xl font-bold text-stone-900">Choose Your Fighter: The Two Vibe Paths</h2>
+                <p class="max-w-2xl mx-auto mt-4 text-lg text-stone-600">Not all vibe coding is the same. There's the "let's see what happens" approach and the "I'm a professional" approach. Let's break it down.</p>
             </div>
-            <div id="paths-container" class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <div id="paths-container" class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto items-center">
             </div>
         </section>
 
         <section id="personas" class="mb-16 md:mb-24">
             <div class="text-center mb-12">
                 <h2 class="text-3xl md:text-4xl font-bold text-stone-900">The New Cast of Creators</h2>
-                <p class="max-w-2xl mx-auto mt-4 text-lg text-stone-600">Vibe coding is not just changing how software
-                    is written; it's redefining who can write it. Select a persona to see how their roles are evolving.
-                </p>
+                <img src="images/image (15).png" alt="Pull Stack Developer meme" class="mt-6 rounded-lg shadow-md mx-auto w-full max-w-md">
+                <p class="max-w-2xl mx-auto mt-4 text-lg text-stone-600">Vibe coding isn't just for hoodie-wearing hackers anymore. It's changing who gets to build stuff. Pick a persona and see what's up.</p>
             </div>
             <div class="max-w-6xl mx-auto">
                 <div id="persona-tabs" class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8">
@@ -203,8 +163,7 @@
         <section id="toolkit" class="mb-16 md:mb-24">
             <div class="text-center mb-12">
                 <h2 class="text-3xl md:text-4xl font-bold text-stone-900">The Vibe Coder's Toolkit</h2>
-                <p class="max-w-2xl mx-auto mt-4 text-lg text-stone-600">A diverse ecosystem of tools has emerged to
-                    power this new paradigm. Hover over each category to explore the key players and their purpose.</p>
+                <p class="max-w-2xl mx-auto mt-4 text-lg text-stone-600">You need the right gear to catch a vibe. Here are the kinds of tools people are using. Hover over them to see the deets.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
             </div>
@@ -212,19 +171,17 @@
 
         <section id="risks" class="mb-16 md:mb-24">
             <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-stone-900">Risks & Mitigation</h2>
-                <p class="max-w-2xl mx-auto mt-4 text-lg text-stone-600">Unchecked, vibe coding introduces critical
-                    liabilities. A disciplined, risk-aware approach is essential. Click on a risk to see how to address
-                    it.</p>
+                <h2 class="text-3xl md:text-4xl font-bold text-stone-900">Okay, But What Could Go Wrong?</h2>
+                <p class="max-w-2xl mx-auto mt-4 text-lg text-stone-600">Just vibing has its downsides. If you're not careful, things can get messy. Click on a risk to see how to avoid a total meltdown.</p>
+                 <img src="images/image (12).png" alt="Vibe coding vs vibe debugging meme" class="mt-6 rounded-lg shadow-md mx-auto w-full max-w-sm">
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto">
                 <div id="risk-list" class="space-y-4">
                 </div>
                 <div id="mitigation-list" class="bg-white p-8 rounded-xl shadow-lg border border-stone-200">
-                    <h3 class="text-xl font-bold mb-4 text-indigo-800">Mitigation Strategies</h3>
+                    <h3 class="text-xl font-bold mb-4 text-indigo-800">How to Not Mess Up</h3>
                     <div id="mitigation-content" class="space-y-4">
-                        <p class="text-stone-500">Select a risk on the left to view its corresponding mitigation
-                            strategies.</p>
+                        <p class="text-stone-500">Select a risk on the left to see how to dodge the bullet.</p>
                     </div>
                 </div>
             </div>
@@ -232,25 +189,20 @@
 
         <section id="future" class="bg-teal-700 text-white rounded-2xl p-8 md:p-16">
             <div class="text-center">
-                <h2 class="text-3xl md:text-4xl font-bold">The Future of Software Creation</h2>
-                <p class="max-w-3xl mx-auto mt-4 text-lg text-teal-100 mb-12">The developer's role is evolving from a
-                    writer of code to an orchestrator of AI. The bottleneck is shifting from *'Can we build this?'* to
-                    *'Should we build this?'*</p>
+                <h2 class="text-3xl md:text-4xl font-bold">So, What's Next?</h2>
+                <p class="max-w-3xl mx-auto mt-4 text-lg text-teal-100 mb-12">The job is changing from "typing code" to "directing an AI." The big question is shifting from *'Can we build this?'* to *'Should we build this?'*</p>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
                     <div class="bg-teal-800/50 p-6 rounded-xl">
-                        <h3 class="font-bold text-xl mb-2">For Technology Leaders</h3>
-                        <p class="text-teal-200">Adopt a dual-track strategy: encourage sandboxed innovation while
-                            enforcing rigorous discipline and security reviews for production code.</p>
+                        <h3 class="font-bold text-xl mb-2">For Bosses</h3>
+                        <p class="text-teal-200">Let your team experiment, but have real pros check the code before it goes live. Simple.</p>
                     </div>
                     <div class="bg-teal-800/50 p-6 rounded-xl">
-                        <h3 class="font-bold text-xl mb-2">For Individuals</h3>
-                        <p class="text-teal-200">Cultivate T-shaped expertise. Build deep foundational knowledge in your
-                            core domain while developing broad proficiency in directing AI systems.</p>
+                        <h3 class="font-bold text-xl mb-2">For You</h3>
+                        <p class="text-teal-200">Get good at what you do, but also get good at telling an AI what to do. Be the expert who knows how to use the super-tool.</p>
                     </div>
                     <div class="bg-teal-800/50 p-6 rounded-xl">
-                        <h3 class="font-bold text-xl mb-2">For the Industry</h3>
-                        <p class="text-teal-200">Develop a new canon of best practices that responsibly integrates
-                            human-AI collaboration, focusing on quality, security, and maintainability.</p>
+                        <h3 class="font-bold text-xl mb-2">For Everyone</h3>
+                        <p class="text-teal-200">We need new rules of thumb for working with AI that keep things high-quality and secure.</p>
                     </div>
                 </div>
             </div>
@@ -259,19 +211,8 @@
     </main>
 
     <footer class="text-center py-8 text-stone-500">
-        <p>An Interactive Synthesis of the Report: "The Vibe Shift"</p>
+        <p>An Interactive Vibe Check on the Future of Code</p>
     </footer>
-
-    <div id="gemini-modal"
-        class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden">
-        <div
-            class="bg-white rounded-xl shadow-2xl max-w-2xl w-full p-8 relative transform transition-all scale-95 opacity-0">
-            <button id="close-modal-btn"
-                class="absolute top-4 right-4 text-stone-500 hover:text-stone-800 text-2xl">&times;</button>
-            <h3 id="modal-title" class="text-2xl font-bold text-indigo-800 mb-4"></h3>
-            <div id="modal-content" class="text-stone-700"></div>
-        </div>
-    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -284,164 +225,107 @@
                     {
                         title: 'Track 1: "Pure" Vibe Coding',
                         icon: '🚀',
-                        description: 'An exploratory practice with high trust in AI output, often without reading the code. The user acts as a director, providing prompts and observing results.',
-                        who: 'Hobbyists, Ideation, Rapid Prototyping',
-                        goal: 'Maximum speed for throwaway projects and personal tools.'
+                        description: 'This is the "close your eyes and trust the AI" method. You tell it what to do and hope for the best. Great for quick experiments.',
+                        who: 'Hobbyists, Idea People, Prototype Champions',
+                        goal: 'Go as fast as humanly possible for stuff you might delete tomorrow.',
+                        meme: "images/image (13).png"
                     },
                     {
                         title: 'Track 2: Responsible AI-Assisted Development',
                         icon: '🛠️',
-                        description: 'A disciplined, professional application where the AI acts as a "pair programmer." The human developer takes full ownership of the final product.',
+                        description: 'Here, the AI is your super-smart intern. It writes code, but you\'re the boss who reviews, tests, and takes full responsibility.',
                         who: 'Professionals, Engineers, PMs, Designers',
-                        goal: 'Augmenting skills, increasing productivity and quality while ensuring security and maintainability.'
+                        goal: 'Get a speed boost without sacrificing quality, security, or your job.',
+                        meme: "images/a38yay.jpg"
                     }
                 ],
                 personas: [
                     {
                         name: 'Augmented Engineer',
-                        title: 'From Coder to Architect',
-                        motivation: 'Automate tedious work (boilerplate, tests) to focus on high-value tasks like architecture, performance, and security.',
-                        workflow: 'Uses in-editor assistants (e.g., GitHub Copilot) in a tight loop: prompt, generate, meticulously review, test, and refine.',
-                        challenge: 'Avoiding skill atrophy and over-dependence on AI for fundamental problem-solving.'
+                        title: 'From Coder to Code Boss',
+                        motivation: 'Skip the boring parts (setup, tests) to focus on the hard, fun problems like making things fast and secure.',
+                        workflow: 'Lives in a loop: write a comment, let the AI generate code, then meticulously check its work like a hawk.',
+                        challenge: 'Not getting lazy and forgetting how to code from scratch.'
                     },
                     {
                         name: 'Prototyping Product Manager',
-                        title: 'Bridging the Idea-Execution Gap',
-                        motivation: 'Independently create functional, high-fidelity prototypes to test hypotheses and get stakeholder buy-in without waiting for engineering resources.',
-                        workflow: 'Uses full-stack generators (e.g., Replit) to turn user stories directly into interactive web apps from natural language prompts.',
-                        challenge: 'Managing the "messy handoff" to engineering, ensuring prototypes are seen as proofs-of-concept, not production code.'
+                        title: 'From "What If?" to "Click This"',
+                        motivation: 'Build working demos to show people your ideas instead of just talking about them. No more waiting for engineers!',
+                        workflow: 'Turns user stories and feature ideas directly into apps using natural language. It\'s like magic.',
+                        challenge: 'Handing off a messy prototype to engineers and saying "just make it work." (Don\'t do this.)'
                     },
                     {
                         name: 'Interactive Designer',
-                        title: 'From Static Mockups to Live Prototypes',
-                        motivation: 'Move beyond static design tools to build genuinely interactive prototypes that accurately simulate complex user experiences and animations.',
-                        workflow: 'Uses UI-specialist tools (e.g., Lovable) to generate components from text or convert Figma designs into functional code, then refines with prompts.',
-                        challenge: 'Ensuring AI-generated designs align with established design systems and are technically feasible for production.'
+                        title: 'From Flat Pictures to Live Experiences',
+                        motivation: 'Go beyond static mockups and build real, interactive designs that feel like the final product.',
+                        workflow: 'Uses AI tools to turn designs into working code, then tweaks the details with more prompts.',
+                        challenge: 'Making sure the AI\'s pretty designs can actually be built and don\'t break the rules.'
                     },
                     {
                         name: 'Citizen Developer & Solo Founder',
-                        title: 'The Democratization of Building',
-                        motivation: 'Build functional software to solve a specific problem without the time or capital required to learn traditional coding or hire a team.',
-                        workflow: 'Relies on "pure" vibe coding, using platforms that abstract away the code entirely, focusing only on high-level goals and functional output.',
-                        challenge: 'Creations are often plagued by bugs, major security vulnerabilities, and an inability to scale, posing significant risks.'
+                        title: 'Building an Empire from the Couch',
+                        motivation: 'Create a real app to solve a problem without spending years learning to code or a fortune hiring a team.',
+                        workflow: 'Mostly "pure" vibe coding. Focus on the big picture and let the AI handle the nitty-gritty.',
+                        challenge: 'The final product is often held together with digital duct tape, full of bugs and security holes.'
                     }
                 ],
                 toolkit: [
                     {
                         category: 'Full-Stack Generators',
-                        description: 'Generate complete, deployable applications from prompts, handling frontend, backend, and database.',
+                        description: 'Generate whole apps—frontend, backend, database and all—from a single prompt.',
                         players: 'Replit, Lovable, Bolt',
                         icon: '🌐'
                     },
                     {
                         category: 'AI-Native IDEs',
-                        description: 'Code editors built for AI, offering deep codebase context and multi-file editing capabilities.',
+                        description: 'Code editors built specifically for AI. They know your whole project and can edit multiple files at once.',
                         players: 'Cursor, Kiro by Amazon, Claude Code',
                         icon: '💻'
                     },
                     {
                         category: 'UI & Frontend Specialists',
-                        description: 'Focus on generating UI components and frontend code from text prompts or design files.',
+                        description: 'Tools that are amazing at creating user interfaces from text prompts or design files.',
                         players: 'Lovable, Figma Make, v0 by Vercel',
                         icon: '🎨'
                     },
                     {
                         category: 'In-Editor Code Assistants',
-                        description: 'Plugins for existing IDEs that provide code completion and agentic task automation.',
+                        description: 'The classic AI helper. Lives inside your favorite code editor and suggests code as you type.',
                         players: 'GitHub Copilot, VSCode Extensions',
                         icon: '🔌'
                     }
                 ],
                 risks: [
                     {
-                        name: 'Security Deficit',
-                        description: 'AI is optimized for functional, not secure, code, leading to "silent killer" vulnerabilities like SQL injection, XSS, and hardcoded secrets.',
+                        name: 'Security Holes',
+                        description: 'AI is great at making code that works, but not so great at making code that\'s secure. It can leave the door wide open for hackers.',
                         mitigation: [
-                            '<strong>Secure Prompting:</strong> Explicitly ask for security controls in prompts (e.g., "sanitize filenames to prevent path traversal").',
-                            '<strong>Automated Scanning:</strong> Integrate SAST, DAST, and secret scanning tools into the CI/CD pipeline.',
-                            '<strong>Mandatory Human Review:</strong> All AI-generated code, especially for critical functions, must be reviewed by an experienced engineer.'
+                            '<strong>Be Specific:</strong> Actually ask the AI to add security features in your prompt.',
+                            '<strong>Use Scanners:</strong> Have automated tools check the AI\'s code for common vulnerabilities.',
+                            '<strong>Human Check:</strong> Nothing beats a real, experienced human looking over the code before it goes live.'
+                        ],
+                        meme: "images/image (14).png"
+                    },
+                    {
+                        name: 'A Tangled Mess (Technical Debt)',
+                        description: 'Going fast can lead to messy, inconsistent code that\'s a nightmare to fix or update later. It\'s like building a house without a blueprint.',
+                        mitigation: [
+                            '<strong>Code Reviews:</strong> Have humans check for consistency and good practices.',
+                            '<strong>Clean-Up Duty:</strong> Schedule time specifically to fix and document the messy parts.',
+                            '<strong>Make the AI Document Itself:</strong> Use AI tools to help explain the code it just wrote.'
                         ]
                     },
                     {
-                        name: 'Technical Debt',
-                        description: 'Focus on speed leads to inconsistent patterns, poor architecture, and lack of documentation, creating a "black box" that is hard to maintain.',
+                        name: 'Rogue Apps ("Shadow IT")',
+                        description: 'When anyone can build an app, they will. This can lead to a bunch of unofficial, insecure apps handling company data, which is a big yikes for IT.',
                         mitigation: [
-                            '<strong>Rigorous Architectural Reviews:</strong> Enforce consistency and adherence to established design patterns during code review.',
-                            '<strong>Dedicated Refactoring Sprints:</strong> Formally allocate time to improve, document, and pay down debt in AI-generated code.',
-                            '<strong>Leverage AI for Documentation:</strong> Use AI tools to help document and explain the code it has generated.'
-                        ]
-                    },
-                    {
-                        name: '"Shadow IT" & Compliance',
-                        description: 'Non-technical employees build unsanctioned apps that lack enterprise-grade security, data privacy, and regulatory compliance (GDPR, HIPAA).',
-                        mitigation: [
-                            '<strong>Establish Governance:</strong> Create clear corporate policies on approved AI tools and provide sanctioned, secure "sandbox" environments.',
-                            '<strong>Implement Tiered Access:</strong> Provide guided development for domain experts while reserving full access for trained engineers.',
-                            '<strong>Partner, Don\'t Prohibit:</strong> IT should educate business units on risks and provide them with safe platforms and training.'
+                            '<strong>Set Some Rules:</strong> Create clear company policies on what AI tools are allowed.',
+                            '<strong>Safe Playgrounds:</strong> Give people approved, secure environments where they can experiment without breaking anything important.',
+                            '<strong>Educate, Don\'t Ban:</strong> Teach people about the risks and guide them toward safe practices.'
                         ]
                     }
                 ]
             };
-
-            const geminiModal = document.getElementById('gemini-modal');
-            const modalContentContainer = geminiModal.querySelector('div');
-            const modalTitle = document.getElementById('modal-title');
-            const modalContent = document.getElementById('modal-content');
-            const closeModalBtn = document.getElementById('close-modal-btn');
-
-            const showModal = () => {
-                geminiModal.classList.remove('hidden');
-                setTimeout(() => {
-                    modalContentContainer.classList.remove('scale-95', 'opacity-0');
-                }, 10);
-            };
-
-            const hideModal = () => {
-                modalContentContainer.classList.add('scale-95', 'opacity-0');
-                setTimeout(() => {
-                    geminiModal.classList.add('hidden');
-                }, 200);
-            };
-
-            closeModalBtn.addEventListener('click', hideModal);
-            geminiModal.addEventListener('click', (e) => {
-                if (e.target === geminiModal) {
-                    hideModal();
-                }
-            });
-
-            async function callGemini(prompt) {
-                const apiKey = "";
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
-                const chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
-                const payload = { contents: chatHistory };
-
-                try {
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (!response.ok) {
-                        console.error(`HTTP error! status: ${response.status}`);
-                        return "Sorry, there was an issue with the API response.";
-                    }
-
-                    const result = await response.json();
-                    if (result.candidates && result.candidates.length > 0 &&
-                        result.candidates[0].content && result.candidates[0].content.parts &&
-                        result.candidates[0].content.parts.length > 0) {
-                        return result.candidates[0].content.parts[0].text;
-                    } else {
-                        console.error("Invalid response structure from Gemini API", result);
-                        return "Sorry, the API returned an unexpected response format.";
-                    }
-                } catch (error) {
-                    console.error("Error calling Gemini API:", error);
-                    return "Sorry, I couldn't connect to the AI service. Please check your connection and try again.";
-                }
-            }
 
             const animateStat = (element, target, duration, suffix = '') => {
                 let start = 0;
@@ -495,7 +379,7 @@
             const pathsContainer = document.getElementById('paths-container');
             data.paths.forEach(path => {
                 const card = document.createElement('div');
-                card.className = 'path-card bg-white p-8 rounded-xl shadow-lg border border-stone-200 cursor-pointer transform hover:scale-105 transition-transform duration-300';
+                card.className = 'path-card bg-white p-8 rounded-xl shadow-lg border border-stone-200';
                 card.innerHTML = `
                     <div class="text-4xl mb-4">${path.icon}</div>
                     <h3 class="text-2xl font-bold text-stone-800 mb-3">${path.title}</h3>
@@ -506,6 +390,15 @@
                     </div>
                 `;
                 pathsContainer.appendChild(card);
+
+                const imgContainer = document.createElement('div');
+                imgContainer.className = 'flex items-center justify-center p-4';
+                const img = document.createElement('img');
+                img.src = path.meme;
+                img.alt = path.title + ' meme';
+                img.className = 'rounded-lg shadow-md mx-auto w-full max-w-sm';
+                imgContainer.appendChild(img);
+                pathsContainer.appendChild(imgContainer);
             });
 
             const personaTabs = document.getElementById('persona-tabs');
@@ -523,8 +416,8 @@
                 const persona = data.personas[index];
                 personaContent.innerHTML = `
                     <h3 class="text-2xl font-bold text-teal-700 mb-2">${persona.name}</h3>
-                    <p class="text-lg font-semibold text-stone-500 mb-2">${persona.title}</p>
-                    <div class="space-y-4 text-stone-700 mb-2">
+                    <p class="text-lg font-semibold text-stone-500 mb-4">${persona.title}</p>
+                    <div class="space-y-4 text-stone-700">
                         <p><strong>Motivation:</strong> ${persona.motivation}</p>
                         <p><strong>Workflow:</strong> ${persona.workflow}</p>
                         <p><strong>Challenge:</strong> ${persona.challenge}</p>
@@ -564,11 +457,16 @@
                 const item = document.createElement('div');
                 item.className = 'risk-item bg-white p-6 rounded-xl shadow-lg border border-stone-200 cursor-pointer transition-all duration-300 hover:bg-indigo-600 hover:text-white';
                 item.dataset.index = index;
+                let memeHtml = '';
+                if (risk.meme) {
+                    memeHtml = `<img src="${risk.meme}" alt="${risk.name} meme" class="mt-4 rounded-lg shadow-md w-full max-w-xs mx-auto">`;
+                }
                 item.innerHTML = `
                     <div class="flex justify-between items-start">
                         <div>
                             <h4 class="text-xl font-bold mb-2">${risk.name}</h4>
                             <p>${risk.description}</p>
+                            ${memeHtml}
                         </div>
                     </div>
                 `;
@@ -576,7 +474,6 @@
             });
 
             riskList.addEventListener('click', (e) => {
-
                 const riskItem = e.target.closest('.risk-item');
                 if (riskItem) {
                     updateMitigationContent(riskItem.dataset.index);
